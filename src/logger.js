@@ -16,4 +16,4 @@ if (NODE_ENV !== 'production') {
   }));
 }
 
-module.exports = winston;
+module.exports = logger;
