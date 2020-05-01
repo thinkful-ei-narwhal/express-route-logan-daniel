@@ -30,7 +30,7 @@ bookmarksRouter
       return res.status(400);
     }
    
-    if (!rating || Number.isInteger(Number(rating))){
+    if (!rating || !Number.isInteger(Number(rating))){
       logger.error('A rating as an integer is required');
       return res.status(400);
     }
