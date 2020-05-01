@@ -1,4 +1,5 @@
 const app = require('../src/app');
+
 const { bookmarks }= require('../src/store');
 
 const id = bookmarks[0].id;
@@ -59,5 +60,11 @@ describe('GET', () => {
       .delete(`/bookmarks/${id}`)
       .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
       .expect(204);
+  });
+  it('Get /bookmarks/abcd responds with 500', () => {
+    return supertest(app)
+      .get('/bookmarks/abcd')
+      .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+      .expect(500);
   });
 });

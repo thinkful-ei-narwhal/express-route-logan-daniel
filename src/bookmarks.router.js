@@ -1,5 +1,5 @@
 const express = require('express');
-const { v3 : uuid} = require('uuid');
+const { v4 : uuid} = require('uuid');
 const logger = require('./logger');
 const { bookmarks }= require('./store');
 
@@ -11,7 +11,7 @@ bookmarksRouter
   .get((req, res) => {
     res.json(bookmarks);
   })
-  .post((req, res) => { // add parser
+  .post((req, res, next) => { // add parser
     const id = uuid();
     const {title, url, description, rating } = req.body;
 
@@ -43,8 +43,11 @@ bookmarksRouter
 
 bookmarksRouter
   .route('/:id')
-  .get((req, res) => {
+  .get((req, res, next) => {
     const id = req.params.id;
+    if(id.length < 16){
+      return next(new Error());
+    }
     let flag = true;
     bookmarks.forEach(bookmark => {
       if(bookmark.id === id){
@@ -59,7 +62,7 @@ bookmarksRouter
     res.json(item);
     
   })
-  .delete((req, res) => {
+  .delete((req, res, next) => {
     const item = bookmarks.filter(bookmark => bookmark.id === req.params.id);
     bookmarks.splice(item, 1);
     res.status(204).end();
