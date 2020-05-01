@@ -1,16 +1,18 @@
-const express = require('express');
-const bookmarksRouter = express.Router();
+const app = require('../src/app');
+
 
 
 describe('App', () => {
   it('GET / responds with 200', () => {
-    return supertest(bookmarksRouter)
-      .get('/')
+    return supertest(app)
+      .get('/bookmarks')
+      .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
       .expect(200);
   });
   it('GET / responds with 200 AND provides an array', () => {
-    return supertest(bookmarksRouter)
-      .get('/')
+    return supertest(app)
+      .get('/bookmarks')
+      .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
       .expect(200)
       .expect('Content-Type', /json/)
       .then(res => {
