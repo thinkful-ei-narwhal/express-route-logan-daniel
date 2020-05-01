@@ -9,7 +9,6 @@ const bookmarksRouter = express.Router();
 bookmarksRouter
   .route('/')
   .get((req, res) => {
-    console.log('hello');
     res.json(bookmarks);
   })
   .post((req, res) => { // add parser
