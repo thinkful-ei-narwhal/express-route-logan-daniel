@@ -17,22 +17,22 @@ bookmarksRouter
 
     if (!title) {
       logger.error('Title is required');
-      return res.status(400);
+      return res.status(400).json({error: 'Title is required'});
     }
 
     if (!url || !url.startsWith('http')){
       logger.error('A proper URL is required');
-      return res.status(400);
+      return res.status(400).json({error: 'A proper URL is required'});
     }
 
     if (!description) {
       logger.error('description is required');
-      return res.status(400);
+      return res.status(400).json({error: 'description is required'});
     }
    
     if (!rating || !Number.isInteger(Number(rating))){
       logger.error('A rating as an integer is required');
-      return res.status(400);
+      return res.status(400).json({error: 'A rating as an integer is required'});
     }
     
     const newBookmark = {id, title, url, description, rating};
